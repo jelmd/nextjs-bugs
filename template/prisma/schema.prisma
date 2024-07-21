@@ -1,0 +1,63 @@
+// The contents of this file are subject to the terms of the
+// Common Development and Distribution License (the "License") 1.1!
+// You may not use this file except in compliance with the License.
+//
+// See  https://spdx.org/licenses/CDDL-1.1.html  for the specific
+// language governing permissions and limitations under the License.
+//
+// Copyright 2023 Jens Elkner (jel+nextjs-bug@linofee.org)
+//
+// prisma/schema.prisma
+
+datasource mydb {
+    provider          = "mysql"
+    url               = env("DATABASE_URL")
+    shadowDatabaseUrl = env("DATABASE_TMP_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+enum Role {
+    ADMIN
+    OWNER
+    CHALKER
+    USER
+    GUEST
+    ANONYMOUS
+}
+
+model Session {
+    token   String   @id @mydb.VarChar(36)
+    uid     Int      @mydb.Int
+    expires DateTime @default(now())
+
+    // required
+    user User @relation(fields: [uid], references: [id], onDelete: Cascade)
+
+    @@map(name: "session")
+}
+
+model User {
+    id            Int       @id @default(autoincrement()) @mydb.Int
+    account       String    @unique @mydb.VarChar(31)
+    firstname     String    @mydb.VarChar(31)
+    middlename    String?   @mydb.VarChar(63)
+    lastname      String    @mydb.VarChar(31)
+    nickname      String?   @mydb.VarChar(15)
+    email         String    @unique @mydb.VarChar(63)
+    emailVerified DateTime?
+    password      String    @mydb.VarChar(127)
+    lastPwUpdate  DateTime  @default(now())
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @default(now())
+    deletedAt     DateTime?
+    role          Role      @default(GUEST)
+    lang          String    @default("de")
+    image         String?   @unique @mydb.VarChar(32)
+
+    sessions Session[]
+
+    @@map(name: "user")
+}

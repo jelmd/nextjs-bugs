@@ -1,0 +1,168 @@
+/* styles/global.css */
+
+:root {
+	/*
+	--font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
+		'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
+		'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+	*/
+	--foreground: #000;
+	--background: #fbfbff;
+	--table-border-color: #cbcbcb;
+	--table-line-odd-bg: #edf5ff;
+	--table-button-bg-base: #cfe2fe;
+	--table-button-bg-selected: #90ee90;
+	--table-button-bg-unselected: white;
+	--holiday-color: red;
+	--sunday-color: red;
+	--saturday-color: gray;
+	--subbutton-color: #e9911e;
+	--subbutton-background: #beffbe;
+	/* unused */
+	--background-highlite: #fef2cd;
+	--background-highlite2: #f0db5c;
+}
+
+html {
+	background: var(--background);
+}
+
+body {
+	/* trick to adjust mono to serif size, but still honor user's settings */
+	font-size: calc(100% - 0px);
+	max-width: 100vw;
+	overflow-x: hidden;
+	color: var(--foreground);
+}
+
+body>*:first-child {
+	margin-top: inherit;
+}
+
+p,
+fieldset,
+table,
+pre {
+	margin-top: 0.7em;
+	margin-bottom: 0;
+}
+
+pre {
+	white-space: pre;
+	padding: 1ex;
+	line-height: 125%;
+}
+
+h1 {
+	font-size: 160%;
+	font-weight: bold;
+}
+
+h1,
+h2,
+h3,
+h4,
+.title {
+	color: #e77207;
+	margin-top: 2em;
+}
+
+main {
+	margin: 0 auto
+}
+
+main:first-child, #kform, #kform:first-child {
+	margin-top: 0;
+}
+
+h1 {
+	margin-top: 1em;
+	margin-bottom: 1ex;
+}
+
+h1 + h3 {
+	margin-top: 0;
+}
+
+code {
+	white-space: pre;
+	background-color: #ddd;
+}
+
+pre>code {
+	display: block;
+	padding: 1ex;
+	background: #fdf6e3;
+	border: 1px solid #e5e5e5;
+	border-radius: 1ex;
+	color: #964444;
+}
+
+.example {
+	margin-top: 0.7em;
+	margin-bottom: 2em;
+	background: #fffee0;
+	border: 1px solid black;
+	padding: 1ex 1ex 1ex 1ex;
+}
+
+.footnote {
+	color: red;
+	vertical-align: text-top;
+}
+
+.center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+table {
+	margin: auto;
+}
+table td {
+	padding: 0.5ex 1ex;
+	border: none;
+	border-left: 1px solid var(--table-border-color);
+}
+
+table tr:nth-child(even) {
+	background-color: var(--table-line-odd-bg);
+}
+table tbody, table th {
+	border: 1px solid var(--table-border-color);
+}
+
+table th {
+	text-shadow: 0 1px 1px #fff;
+	background-image: linear-gradient(transparent 40%,#00000036);
+	/* background-image: linear-gradient(transparent 40%, #00000026); */
+}
+table select {
+	border-radius: 0.5ex;
+	--gradient1: linear-gradient(var(--table-button-bg-base), transparent 50%, var(--table-button-bg-base));
+	--gradient2: linear-gradient(transparent, var(--table-button-bg-base) 50%, transparent);
+	background-color: var(--table-button-bg-unselected);
+	background-image: var(--gradient2);
+}
+
+/** ############################### FOOTER ################################## */
+#ft {
+	text-align: center;
+	border-style: solid;
+	border-color: #9999ff;
+	border-width: 1px 0px 0px;
+	margin: 1em 0em 0em;
+}
+
+#ft p,
+#ft a {
+	margin: 2px;
+	font-size: 10px;
+	color: #9999ff;
+	background: inherit;
+	white-space: nowrap;
+}
+
+/** ############################ END OF FOOTER ############################## */
