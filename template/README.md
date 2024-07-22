@@ -3,14 +3,16 @@ Initial setup
 The thing is buggy too - need to specify project name twice if --no- gets used:
 ```
 setenv APPNAME 01_auth
+
 #npx create-next-app@rc --typescript --eslint --app --src-dir --turbo \
 #	--no-tailwind --no-import-alias --empty \
 #	${APPNAME} ${APPNAME}
-cp -pr template ${APPNAME}
-mv ${APPNAME}/.env.example ${APPNAME}/.env
+#cp -pr template ${APPNAME}
+#mv ${APPNAME}/.env.example ${APPNAME}/.env
 
 
 cd ${APPNAME}
+cp ../template/.env.example .env
 npm install --legacy-peer-deps \
 	@next-auth/prisma-adapter@latest @prisma/client@latest
 npm install -D --legacy-peer-deps \
