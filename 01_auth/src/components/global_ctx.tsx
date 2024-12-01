@@ -10,29 +10,21 @@
  */
 'use client';
 
-import React, { createContext, PropsWithChildren, useRef, useState } from "react";
-import { UserInfo } from "@/nextauth";
+import React, { createContext, PropsWithChildren, useState } from "react";
 
 // components/global_ctx.tsx
 
 const DEBUG = true;
 
-export interface AppUser extends UserInfo {}
-
 export interface GlobalCtxType {
 	navbarVisible: boolean,
-	navbarToggle: () => void,
-	user: React.MutableRefObject<AppUser>|null,
-	userUpdate: (user: AppUser|undefined) => void	// eslint-disable-line
+	navbarToggle: () => void
 }
 
 // for whatever reason React wants to have default values for every context.
 const GlobalCtx = createContext<GlobalCtxType>({
 	navbarVisible: false,
-	navbarToggle: () => {},
-	user: null,
-	// @ts-ignore
-	userUpdate: (ApUser) => {},		// eslint-disable-line
+	navbarToggle: () => {}
 });
 
 export default GlobalCtx;
@@ -40,12 +32,9 @@ export default GlobalCtx;
 export function GlobalCtxProvider(props: PropsWithChildren) {
 	// NOTE: It is not allowed to call setState() functions from another component.
 	const [navbarVisible, setNavbarVisible] = useState(false);
-	// So to avoid any trouble we do not use state here. Usually EnsureSession
-	// (which does the update) will triger a re-render anyway.
-	const userRef = useRef({} as AppUser);
 
 	/**
-	 * Toggle hte visibility of the Navbar.
+	 * Toggle the visibility of the Navbar.
 	 */
 	const toggleNavbar = () => {
 		setNavbarVisible((prev) => {
@@ -54,25 +43,9 @@ export function GlobalCtxProvider(props: PropsWithChildren) {
 		});
 	};
 
-	/**
-	 * Update the AppUser properties as needed.
-	 *
-	 * @param user Update the current app user. Any properties having the value
-	 * 		`null` get ignored, i.e. this property of the AppUser stays as is.
-	 */
-	const updateUser = (newuser: AppUser|undefined) => {
-		if (!newuser || (userRef && userRef.current.lm === newuser.lm))
-			return;
-		userRef.current = userRef.current
-			? Object.assign(userRef.current, newuser)
-			: { ...newuser };
-	};
-
 	const context = {
 		navbarVisible: navbarVisible,
-		navbarToggle: toggleNavbar,
-		user: userRef,
-		userUpdate: updateUser
+		navbarToggle: toggleNavbar
 	} as GlobalCtxType;
 
 	return (

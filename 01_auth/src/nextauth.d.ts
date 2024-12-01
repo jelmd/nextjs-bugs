@@ -10,12 +10,13 @@
  */
 'use strict';
 
-import { DefaultSession, DefaultUser } from "next-auth";
+import { DefaultSession } from "next-auth";
 import { Role } from "@prisma/client";
+import { DefaultJWT } from "next-auth/jwt";
 
 // nextauth.d.ts
 
-interface UserInfo extends DefaultUser {
+export interface UserExt {
 	// we do NOT want the user ID exposed here, but perhaps a tmpID. which gets
 	// wired to state.
 	tid: number,
@@ -32,6 +33,18 @@ interface UserInfo extends DefaultUser {
 }
 
 declare module "next-auth" {
+	/* next-auth removed the 'DefaultUser' interface in v5 (why?), so we need to
+	   duplicate 'User' as 'DefaultUser' to be able to overwrite the 'User'
+	   interface */
+	interface DefaultUser {
+		id?: string
+		name?: string | null
+		email?: string | null
+		image?: string | null
+	}
+
+	interface UserInfo extends DefaultUser, UserExt{}
+
 	interface User extends UserInfo{}
 
 	interface Session extends DefaultSession {	// eslint-disable-line
@@ -39,7 +52,7 @@ declare module "next-auth" {
 	}
 }
 
-declare module "next-auth/jwt" {
+declare module "@auth/core/jwt" {
 	/**
 	 * The the final JWT, which floats around between client and server. In addition
 	 * to JWT it contains:
@@ -50,7 +63,7 @@ declare module "next-auth/jwt" {
 	 * @param firstname	The firstname of the user.
 	 * @param nickname	The nickname of the user.
 	 */
-	interface JWT extends UserInfo {	// eslint-disable-line
+	interface JWT extends DefaultJWT, UserExt {	// eslint-disable-line
 		// all state info, which should not be exposed to the client
 		uid: number
 	}

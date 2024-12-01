@@ -13,21 +13,27 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import { useEffect } from "react";
 
 // app/page.tsx
 
 
 export default function GET() {
 	const { data: session, status } = useSession();
+
+	useEffect(() => {
+		document.title = 'Test-App';
+	});
+
 	if (status === 'loading') {
 		return (
 			<h1>Lade ...</h1>
 		);
 	}
 	if (status === "authenticated") {
-		document.title = 'Test-App';
 		return (
 			<>
+			<title>Test-App</title>
 			Signed in as {session?.user?.name} <br />
 			<button type="button" onClick={() => signOut()}>Signout</button>
 			<Link href="/db">Dashboard</Link>

@@ -9,11 +9,17 @@
  * Copyright 2023 Jens Elkner (jel+nextjs-bugs@linofee.org)
  */
 
+import Link from "next/link"
+
 export default function GET() {
 
 	//document.title = 'Dashboard';
 
 	return (
-		<div>Hello World</div>
+		<>
+			<title>Dashboard</title>
+			<div>Hello World</div>
+			<Link href='/' >Go Home</Link>
+		</>
 	);
 }
