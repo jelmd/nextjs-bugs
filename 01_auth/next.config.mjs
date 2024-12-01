@@ -19,7 +19,6 @@ const nextConfig = {
 	},
 	experimental: {
 		/* appDir: true, */
-		instrumentationHook: true,
 		reactCompiler: false,
 		turbo: {
 			rules: {

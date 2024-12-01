@@ -19,7 +19,7 @@
 import { Prisma, PrismaClient, User } from "@prisma/client";
 import type { Adapter } from "next-auth/adapters";
 import { MAX_NAME_LEN, MIN_LEN, isPrintable, toLowerAscii } from "./utils";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import { HTTP } from "./httpcodes";
 
 const globalForPrisma = global as unknown as {

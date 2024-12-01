@@ -23,9 +23,9 @@ Update
 ```
 cd ${APPNAME}
 npm install --legacy-peer-deps next@rc react@rc react-dom@rc \
-	@next-auth/prisma-adapter@latest @prisma/client@latest
+	@auth/prisma-adapter@2.7.4 @prisma/client@latest
 npm install -D @types/react@latest @types/react-dom@latest \
-	eslint@8.57.0 eslint-config-next@rc next-auth@beta \
+	eslint@8.57.0 eslint-config-next@latest next-auth@beta \
 	prisma@latest ts-node@latest typescript@latest
 ```
 
@@ -54,3 +54,24 @@ INSERT INTO `user` VALUES (1,'john','John','','Doe','johnd','john.doe@example.co
 ```
 
 App Logins: john/doe , jane/smith
+
+
+Bug
+===
+Running `npm run build` shows the problem.
+
+To fix it, run:
+```
+npm install --legacy-peer-deps @auth/prisma-adapter@2.7.2`
+npm run build
+```
+This time the app gets built.
+
+
+So @auth/prisma-adapter v2.7.4 is incompatible to v2.7.2.
+
+BTW: Wrt. to semantic versioning shoudn't be the major version increased
+on incompatible changes to previous versions (e.g. 3.x.x) ?
+
+Also the removal of DefaultUser broke compatibility of v2.7.2 to previous
+versions. =8-(

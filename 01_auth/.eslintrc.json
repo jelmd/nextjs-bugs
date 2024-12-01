@@ -8,6 +8,7 @@
 		"no-unused-vars": 1,
 		"vars-on-top": 1,
 		"valid-typeof": 1,
+		"no-constant-binary-expression": 1,
 
 		"no-extra-semi": 1,
 		"semi": 1,

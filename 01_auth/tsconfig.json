@@ -33,7 +33,7 @@
 		"noImplicitReturns": true,
 		"noImplicitThis": true,
 		"strictBindCallApply": true,
-		"strictNullChecks": true,
+   		"strictNullChecks": true,
 		"strictFunctionTypes": true,
 		"strictPropertyInitialization": true,
 		"useUnknownInCatchVariables": true,
@@ -47,6 +47,10 @@
 		"isolatedModules": true,
 		"jsx": "preserve",
 		"incremental": true,
+
+		// since 5.6
+		"noUncheckedSideEffectImports": true,
+
 		"paths": {
 			"@/scripts/*": [
 				"./scripts/*"
